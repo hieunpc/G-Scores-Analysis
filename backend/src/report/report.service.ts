@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, MoreThanOrEqual, LessThan, And } from 'typeorm';
 import { Student } from '../students/entities/student.entity';
 import { SUBJECTS } from './constants/subject.constant';
 import { SCORE_LEVELS } from './constants/score-level.constant';
+import { SUBJECT_GROUPS } from './constants/subject-group.constant';
 
 @Injectable()
 export class ReportService {
@@ -47,5 +48,45 @@ export class ReportService {
     }
 
     return result;
+  }
+
+  async getTopStudentsByGroup(group: string, limit = 10) {
+    const groupInfo = SUBJECT_GROUPS[group];
+    if (!groupInfo) {
+      throw new BadRequestException(`Invalid subject group: ${group}`);
+    }
+
+    const subjects = groupInfo.subjects;
+
+    const query = this.studentRepository
+      .createQueryBuilder('student')
+      .select('student.sbd', 'sbd');
+
+    subjects.forEach((subject) => {
+      query.addSelect(`student.${subject}`, subject);
+    });
+
+    const totalScoreExpr = subjects
+      .map((subject) => `COALESCE(student.${subject}, 0)`)
+      .join(' + ');
+
+    query
+      .addSelect(totalScoreExpr, 'total')
+      .orderBy('total', 'DESC')
+      .limit(limit);
+
+    const rawStudents = await query.getRawMany();
+
+    return rawStudents.map((row) => ({
+      sbd: row.sbd,
+      scores: subjects.reduce(
+        (scores, subject) => {
+          scores[subject] = Number(row[subject] ?? 0);
+          return scores;
+        },
+        {} as Record<string, number>,
+      ),
+      total: Number(row.total),
+    }));
   }
 }
