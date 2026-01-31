@@ -1,4 +1,10 @@
-import { Controller, Get, Param, NotFoundException, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  NotFoundException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CheckScoreDto } from './dto/check-score.dto';
 
@@ -12,9 +18,11 @@ export class StudentsController {
     params: CheckScoreDto,
   ) {
     const student = await this.studentsService.findByExamId(params.sbd);
-    
+
     if (!student) {
-      throw new NotFoundException(`Cannot find student with SBD: ${params.sbd}`);
+      throw new NotFoundException(
+        `Cannot find student with SBD: ${params.sbd}`,
+      );
     }
 
     return {

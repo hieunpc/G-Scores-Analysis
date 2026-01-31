@@ -10,6 +10,6 @@ export const SUBJECTS = [
   { key: 'gdcd', name: 'GDCD' },
 ] as const;
 
-export const SUBJECT_KEYS = SUBJECTS.map(s => s.key);
+export const SUBJECT_KEYS = SUBJECTS.map((s) => s.key);
 
-export type SubjectKey = typeof SUBJECTS[number]['key'];
+export type SubjectKey = (typeof SUBJECTS)[number]['key'];
