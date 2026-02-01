@@ -35,10 +35,10 @@ const Report = () => {
   );
 
   return (
-    <div className="rounded-lg bg-white p-8 shadow-sm">
+    <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6 lg:p-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Báo cáo thống kê</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">Báo cáo thống kê</h1>
+        <p className="mt-2 text-sm text-gray-600 sm:text-base">
           Phân bổ học sinh theo từng mức điểm và môn học
         </p>
       </div>
@@ -61,12 +61,12 @@ const Report = () => {
 
       {!loading && !error && chartData.length > 0 && (
         <div className="space-y-8">
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6">
+            <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">
               Biểu đồ cột xếp chồng
             </h2>
             {/* TODO: Có thể thêm option để switch giữa stacked và grouped */}
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={300} className="sm:h-[400px]">
               <BarChart
                 data={chartData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 80 }}

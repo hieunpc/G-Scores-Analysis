@@ -1,6 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = () => {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const location = useLocation();
 
   const menuItems = [
@@ -43,38 +48,55 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-slate-900 text-white shadow-lg">
-      <div className="flex h-full flex-col">
-        {/* Logo/Brand */}
-        <div className="border-b border-slate-700 p-6">
-          <h1 className="text-xl font-bold">G-Score</h1>
-        </div>
+    <>
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      
+      <aside className={`fixed left-0 top-0 z-50 h-screen w-64 bg-slate-900 text-white shadow-lg transition-transform duration-300 lg:translate-x-0 ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <div className="flex h-full flex-col">
+          <div className="flex items-center justify-between border-b border-slate-700 p-6">
+            <h1 className="text-xl font-bold">G-Score</h1>
+            <button
+              onClick={onClose}
+              className="rounded p-1 hover:bg-slate-800 lg:hidden"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4">
-          <ul className="space-y-2">
-            {menuItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <li key={item.path}>
-                  <Link
-                    to={item.path}
-                    className={`flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${
-                      isActive
-                        ? 'bg-blue-600 text-white'
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                    }`}
-                  >
-                    {item.icon}
-                    <span className="font-medium">{item.label}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
-    </aside>
+          <nav className="flex-1 overflow-y-auto p-4">
+            <ul className="space-y-2">
+              {menuItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${
+                        isActive
+                          ? 'bg-blue-600 text-white'
+                          : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                      }`}
+                    >
+                      {item.icon}
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+      </aside>
+    </>
   );
 };
 

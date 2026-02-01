@@ -34,22 +34,22 @@ const TopStudents = () => {
   );
 
   return (
-    <div className="rounded-lg bg-white p-8 shadow-sm">
+    <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6 lg:p-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Top thí sinh</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">Top thí sinh</h1>
+        <p className="mt-2 text-sm text-gray-600 sm:text-base">
           Học sinh có điểm cao nhất theo từng khối thi
         </p>
       </div>
 
-      <div className="mb-6 flex flex-wrap items-end gap-4">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end">
         <SelectInput
           id="group-select"
           label="Khối thi"
           value={selectedGroup}
           onChange={setSelectedGroup}
           options={groupSelectOptions}
-          className="flex-1 min-w-[200px]"
+          className="flex-1 sm:w-auto"
         />
 
         <NumberInput

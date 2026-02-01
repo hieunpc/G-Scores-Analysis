@@ -15,14 +15,14 @@ const CheckScore = () => {
   };
 
   return (
-    <div className="rounded-lg bg-white p-8 shadow-sm">
+    <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6 lg:p-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Tra cứu điểm thi</h1>
-        <p className="mt-2 text-gray-600">Nhập số báo danh để xem điểm thi</p>
+        <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">Tra cứu điểm thi</h1>
+        <p className="mt-2 text-sm text-gray-600 sm:text-base">Nhập số báo danh để xem điểm thi</p>
       </div>
 
       <form onSubmit={handleSearch} className="mb-8">
-        <div className="flex gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row">
           <div className="flex-1">
             <div className="relative">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
