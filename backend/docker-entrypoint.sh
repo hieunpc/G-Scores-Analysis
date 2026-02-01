@@ -2,7 +2,8 @@
 set -e
 
 echo "Running database migrations..."
-npm run typeorm migration:run
+# Skip migration for now - tables already created
+# npm run migration:run:prod
 
 echo "Checking if database needs seeding..."
 npm run seed:prod
