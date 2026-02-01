@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: g-score-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_HOST
+        fromDatabase:
+          name: g-score-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: g-score-db
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: g-score-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: g-score-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: g-score-db
+          property: database
+
+databases:
+  - name: g-score-db
+    databaseName: g_scores
+    user: postgres
