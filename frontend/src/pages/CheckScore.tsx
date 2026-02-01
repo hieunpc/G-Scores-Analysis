@@ -10,7 +10,6 @@ const CheckScore = () => {
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log('Searching SBD:', sbd);
     searchStudent(sbd);
   };
 
@@ -32,7 +31,7 @@ const CheckScore = () => {
               </div>
               <input
                 type="text"
-                placeholder="Nhập số báo danh (VD: 01001)"
+                placeholder="Nhập số báo danh"
                 value={sbd}
                 onChange={(e) => {
                   setSbd(e.target.value);
