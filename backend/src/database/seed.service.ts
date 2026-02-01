@@ -21,8 +21,8 @@ export class SeedService {
     }
 
     const csvFilePath = path.join(
-      __dirname,
-      '../../dataset/diem_thi_thpt_2024.csv',
+      process.cwd(),
+      'dataset/diem_thi_thpt_2024.csv',
     );
     const fileContent = fs.readFileSync(csvFilePath, 'utf-8');
 
