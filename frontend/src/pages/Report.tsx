@@ -65,98 +65,108 @@ const Report = () => {
             <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">
               Biểu đồ cột xếp chồng
             </h2>
-            {/* TODO: Có thể thêm option để switch giữa stacked và grouped */}
-            <ResponsiveContainer width="100%" height={300} className="sm:h-[400px]">
-              <BarChart
-                data={chartData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 80 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="subject"
-                  angle={-45}
-                  textAnchor="end"
-                  height={100}
-                  interval={0}
-                  style={{ fontSize: '12px' }}
-                />
-                <YAxis />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    border: '1px solid #ccc',
-                    borderRadius: '8px',
-                  }}
-                  formatter={(value: number | undefined) => value?.toLocaleString() || '0'}
-                />
-                <Legend
-                  wrapperStyle={{ paddingTop: '20px' }}
-                  formatter={(value: string) => {
-                    const config = SCORE_LEVELS[value as keyof typeof SCORE_LEVELS];
-                    return config ? `${config.label} (${value})` : value;
-                  }}
-                />
-                {levelConfig.map(({ key, hex }) => (
-                  <Bar
-                    key={key}
-                    dataKey={key}
-                    stackId="a"
-                    fill={hex}
-                    name={key}
+            <div className="h-[350px] sm:h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={chartData}
+                  margin={{ top: 20, right: 10, left: 0, bottom: 100 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="subject"
+                    angle={-45}
+                    textAnchor="end"
+                    height={100}
+                    interval={0}
+                    style={{ fontSize: '10px' }}
+                    tick={{ fontSize: 10 }}
                   />
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
+                  <YAxis style={{ fontSize: '10px' }} tick={{ fontSize: 10 }} />
+<YAxis style={{ fontSize: '10px' }} tick={{ fontSize: 10 }} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                      border: '1px solid #ccc',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                    }}
+                    formatter={(value: number | undefined) => value?.toLocaleString() || '0'}
+                  />
+                  <Legend
+                    wrapperStyle={{ paddingTop: '20px', fontSize: '11px' }}
+                    iconSize={10}
+                    formatter={(value: string) => {
+                      const config = SCORE_LEVELS[value as keyof typeof SCORE_LEVELS];
+                      return config ? `${config.label}` : value;
+                    }}
+                  />
+                  {levelConfig.map(({ key, hex }) => (
+                    <Bar
+                      key={key}
+                      dataKey={key}
+                      stackId="a"
+                      fill={hex}
+                      name={key}
+                    />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6">
+            <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">
               Biểu đồ cột nhóm
             </h2>
-            <ResponsiveContainer width="100%" height={400}>
-              <BarChart
-                data={chartData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 80 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="subject"
-                  angle={-45}
-                  textAnchor="end"
-                  height={100}
-                  interval={0}
-                  style={{ fontSize: '12px' }}
-                />
-                <YAxis />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    border: '1px solid #ccc',
-                    borderRadius: '8px',
-                  }}
-                  formatter={(value: number | undefined) => value?.toLocaleString() || '0'}
-                />
-                <Legend
-                  wrapperStyle={{ paddingTop: '20px' }}
-                  formatter={(value: string) => {
-                    const config = SCORE_LEVELS[value as keyof typeof SCORE_LEVELS];
-                    return config ? `${config.label} (${value})` : value;
-                  }}
-                />
-                {levelConfig.map(({ key, hex }) => (
-                  <Bar
-                    key={key}
-                    dataKey={key}
-                    fill={hex}
-                    name={key}
+            <div className="h-[350px] sm:h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={chartData}
+                  margin={{ top: 20, right: 10, left: 0, bottom: 100 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="subject"
+                    angle={-45}
+                    textAnchor="end"
+                    height={100}
+                    interval={0}
+                    style={{ fontSize: '10px' }}
+                    tick={{ fontSize: 10 }}
                   />
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
+                  <YAxis style={{ fontSize: '10px' }} tick={{ fontSize: 10 }} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                      border: '1px solid #ccc',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                    }}
+                    formatter={(value: number | undefined) => value?.toLocaleString() || '0'}
+                  />
+                  <Legend
+                    wrapperStyle={{ paddingTop: '20px', fontSize: '11px' }}
+                    iconSize={10}
+                    formatter={(value: string) => {
+                      const config = SCORE_LEVELS[value as keyof typeof SCORE_LEVELS];
+                      return config ? `${config.label}` : value;
+                    }}
+                  />
+                  {levelConfig.map(({ key, hex }) => (
+                    <Bar
+                      key={key}
+                      dataKey={key}
+                      fill={hex}
+                      name={key}
+                    />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          <div className="rounded-lg border border-gray-200 bg-white p-4 sm:p-6">
+            <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">
               Bảng dữ liệu chi tiết
             </h2>
             <div className="overflow-x-auto">
