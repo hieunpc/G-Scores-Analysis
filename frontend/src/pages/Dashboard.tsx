@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { SUBJECTS, SUBJECT_GROUPS } from '../constants';
 
 const Dashboard = () => {
 
