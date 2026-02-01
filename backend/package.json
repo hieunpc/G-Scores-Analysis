@@ -24,7 +24,7 @@
     "migration:run:prod": "typeorm-ts-node-commonjs migration:run -d typeorm.config.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d typeorm.config.ts",
     "seed": "ts-node -r tsconfig-paths/register src/database/seed.ts",
-    "seed:prod": "node dist/src/database/seed.js"
+    "seed:prod": "node --max-old-space-size=450 dist/src/database/seed.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
