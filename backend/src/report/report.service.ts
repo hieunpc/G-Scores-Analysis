@@ -8,12 +8,23 @@ import { SUBJECT_GROUPS } from './constants/subject-group.constant';
 
 @Injectable()
 export class ReportService {
+  private scoreLevelCache: { data: any; timestamp: number } | null = null;
+  private readonly CACHE_TTL = 3600000;
+
   constructor(
     @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
   ) {}
 
   async getScoreLevelReport(subjectFilter?: string) {
+    if (!subjectFilter && this.scoreLevelCache) {
+      const now = Date.now();
+      if (now - this.scoreLevelCache.timestamp < this.CACHE_TTL) {
+        console.log('Returning cached score levels');
+        return this.scoreLevelCache.data;
+      }
+    }
+
     const subjects = subjectFilter
       ? SUBJECTS.filter((s) => s.key === subjectFilter)
       : SUBJECTS;
@@ -45,6 +56,14 @@ export class ReportService {
         acc[key] = count;
         return acc;
       }, {});
+    }
+
+    if (!subjectFilter) {
+      this.scoreLevelCache = {
+        data: result,
+        timestamp: Date.now(),
+      };
+      console.log('Score levels cached');
     }
 
     return result;
