@@ -25,8 +25,8 @@ export const SUBJECT_GROUPS = {
 };
 
 export const SCORE_LEVELS = {
-  '>=8': { label: 'Xuất sắc', color: 'bg-green-500', hex: '#10B981' },
-  '6-8': { label: 'Giỏi', color: 'bg-blue-500', hex: '#3B82F6' },
-  '4-6': { label: 'Khá', color: 'bg-yellow-500', hex: '#F59E0B' },
-  '<4': { label: 'Trung bình', color: 'bg-red-500', hex: '#EF4444' },
+  '>=8': { label: 'Giỏi', color: 'bg-green-500', hex: '#10B981' },
+  '6-8': { label: 'Khá', color: 'bg-blue-500', hex: '#3B82F6' },
+  '4-6': { label: 'Trung Bình', color: 'bg-yellow-500', hex: '#F59E0B' },
+  '<4': { label: 'Yếu', color: 'bg-red-500', hex: '#EF4444' },
 };

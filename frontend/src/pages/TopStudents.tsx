@@ -122,7 +122,6 @@ const TopStudents = () => {
         </div>
       )}
 
-      {/* Empty State */}
       {!loading && !error && students.length === 0 && (
         <EmptyState
           icon={

@@ -4,7 +4,6 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="rounded-lg bg-white p-8 shadow-sm">
         <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
         <p className="mt-2 text-gray-600">
@@ -12,7 +11,6 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Quick Actions */}
       <div className="rounded-lg bg-white p-8 shadow-sm">
         <h2 className="mb-4 text-lg font-semibold text-gray-900">Truy cập nhanh</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

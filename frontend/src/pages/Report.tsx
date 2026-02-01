@@ -20,7 +20,7 @@ const Report = () => {
     Object.entries(scoreLevels).map(([subjectKey, levels]) => ({
       subjectKey,
       subject: SUBJECT_NAME_MAP[subjectKey] || subjectKey,
-      ...levels, // Spread all level keys (excellent, good, etc.)
+      ...levels,
     })),
   [scoreLevels]);
 
@@ -43,7 +43,6 @@ const Report = () => {
         </p>
       </div>
 
-      {/* Legend */}
       <div className="mb-6 flex flex-wrap gap-4">
         {levelConfig.map(({ key, label, hex }) => (
           <div key={key} className="flex items-center gap-2">
@@ -223,7 +222,6 @@ const Report = () => {
         </div>
       )}
 
-      {/* Empty State */}
       {!loading && !error && chartData.length === 0 && (
         <EmptyState
           icon={
