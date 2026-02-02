@@ -264,12 +264,7 @@ Frontend will run at `http://localhost:5173`
 
 Dataset: Vietnamese National High School Graduation Exam 2024 results
 
-- **Records**: 1,065,478 students
-- **Format**: CSV (80MB)
-- **3. External Database Connectivity
-  **Problem\*\*: Connection failures when seeding from local to Render PostgreSQL.
-
-**Solution**: Configured conditional SSL (`rejectUnauthorized: false`) for production, used external hostname with individual connection parameters.
+- **Records**: ~1M students
 
 ## 🚢 Production Deployment
 
