@@ -308,7 +308,7 @@ Dataset: Vietnamese National High School Graduation Exam 2024 results
 - Implemented 1-hour in-memory cache
 - **Result**: 98% improvement (330s → 15s - 30s first load, <1s cached)
 
-### 4. SSL Connection for External Database Access
+### 3. SSL Connection for External Database Access
 
 **Challenge**: Could not connect to Render PostgreSQL from local machine for seeding - connection refused and authentication errors.
 
@@ -329,7 +329,7 @@ Dataset: Vietnamese National High School Graduation Exam 2024 results
 - Used regex pattern `/\.netlify\.app$/` to match all Netlify subdomains
 - Enabled credentials and specified allowed methods/headers for secure cross-origin requests
 
-### 4. Cross-Origin Setup
+### 6. Cross-Origin Setup
 
 **Problem**: Frontend (Netlify) and backend (Render) on different domains.
 
