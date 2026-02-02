@@ -1,0 +1,24 @@
+name: Keep Server Alive
+
+on:
+  schedule:
+    - cron: '*/14 7-22 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Health Check Endpoint
+        run: |
+          echo "Pinging server at $(date)"
+          curl -f https://g-score-backend-ptfq.onrender.com/ || echo "Health check failed"
+          
+      - name: Warm Up Report API
+        run: |
+          echo "Warming up report endpoint"
+          curl -f https://g-score-backend-ptfq.onrender.com/report/score-levels || echo "Report API failed"
+          
+      - name: Ping Complete
+        run: echo "Server ping completed successfully"
