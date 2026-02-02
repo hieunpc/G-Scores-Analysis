@@ -6,8 +6,7 @@ A full-stack web application for analyzing Vietnamese National High School Gradu
 
 - **Score Lookup**: Search individual student scores by registration number (SBD)
 - **Statistical Reports**: Interactive charts showing score distribution across 9 subjects and 5 performance levels
-- **Top Students**: View highest-scoring students by exam groups (A, B, C, D, A1, B1, C1, D1)
-- **Real-time Analytics**: Fast query performance with indexed database and intelligent caching
+- **Top Students**: View highest-scoring students by exam groups (A, B, C, D)
 - **Responsive Design**: Mobile-friendly interface built with React and Tailwind CSS
 
 ## 🚀 Live Demo
@@ -23,7 +22,6 @@ A full-stack web application for analyzing Vietnamese National High School Gradu
 - **Framework**: NestJS (Node.js)
 - **Database**: PostgreSQL with TypeORM
 - **Hosting**: Render (Free tier)
-- **Features**: RESTful API, database indexing, in-memory caching
 
 ### Frontend
 
@@ -32,52 +30,131 @@ A full-stack web application for analyzing Vietnamese National High School Gradu
 - **Charts**: Recharts
 - **Routing**: React Router
 - **Build Tool**: Vite
-- **Hosting**: Netlify (Coming soon)
+- **Hosting**: Netlify
 
 ### Database
 
 - **PostgreSQL**: 1,065,478 student records
 - **Schema**: 9 subject scores + metadata per student
-- **Optimization**: Indexed columns for fast queries, 1-hour cache for reports
 
-## 🧐 Quick Start with Docker
+## 🚀 Quick Start
 
-**Recommended**: Run the entire stack with one command:
+### Option 1: Full Docker + Local Seed (Recommended)
+
+Run all services with Docker but seed database from local machine to avoid memory issues:
 
 ```bash
 # Clone repository
 git clone https://github.com/hieunpc/G-Scores-Analysis.git
 cd G-Scores-Analysis
 
-# Start all services (frontend + backend + PostgreSQL)
+# Start all services
 docker-compose up -d
 
-# Seed database
-docker-compose exec backend npm run seed
+# Check if services are running
+docker-compose ps
 
-# View logs
-docker-compose logs -f
+# Run migrations inside container
+docker-compose exec backend npm run migration:run:prod
+```
+
+**Create `.env` file in `backend` folder** for local seed connection:
+
+```env
+DB_HOST=localhost
+DB_PORT=5433
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=g_scores
+```
+
+**Seed database from local machine** (one-time only, takes ~2-5 minutes):
+
+```bash
+cd backend
+npm install  # if not installed
+npm run seed
 ```
 
 Access the application:
 
 - **Frontend**: `http://localhost` (port 80)
 - **Backend API**: `http://localhost:3000`
-- **Database**: `localhost:5433`
 
 Stop services:
 
 ```bash
 docker-compose down
+# To remove database volumes: docker-compose down -v
 ```
 
-**Prerequisites**: Docker and Docker Compose installed
+**Prerequisites**: Node.js 18+, npm, Docker
 
 ---
 
-## 🛠️ Manual Setup (Alternative)
+### Option 2: Docker for PostgreSQL Only + Local Backend/Frontend
 
-For development with hot-reload and direct debugging:
+This approach provides better development experience with hot-reload:
+
+```bash
+# Clone repository
+git clone https://github.com/hieunpc/G-Scores-Analysis.git
+cd G-Scores-Analysis
+
+# Start only PostgreSQL with Docker
+docker-compose up -d postgres
+
+# Wait for PostgreSQL to be ready (about 10 seconds)
+docker-compose ps
+```
+
+**Create `.env` file in `backend` folder** with the following content:
+
+```env
+DB_HOST=localhost
+DB_PORT=5433
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=g_scores
+```
+
+Continue setup:
+
+```bash
+# Setup Backend
+cd backend
+npm install
+
+# Run migrations and seed database (takes ~2-5 minutes)
+npm run migration:run
+npm run seed
+
+# Start backend
+npm run start:dev
+```
+
+Backend will run at `http://localhost:3000`
+
+In a new terminal:
+
+```bash
+# Setup Frontend
+cd frontend
+npm install
+
+# Start frontend
+npm run dev
+```
+
+Frontend will run at `http://localhost:5173`
+
+**Prerequisites**: Node.js 18+, npm, Docker
+
+---
+
+## 🛠️ Development with Local PostgreSQL
+
+If you prefer not to use Docker at all:
 
 ### Prerequisites
 
@@ -85,52 +162,42 @@ For development with hot-reload and direct debugging:
 - PostgreSQL 14+
 - Git
 
-### Backend Setup
+### Setup Steps
 
-1. **Clone the repository**
+1. **Install PostgreSQL locally and create database**
+
+```bash
+createdb g_scores
+```
+
+2. **Clone and setup backend**
 
 ```bash
 git clone https://github.com/hieunpc/G-Scores-Analysis.git
 cd G-Scores-Analysis/backend
-```
-
-2. **Install dependencies**
-
-```bash
 npm install
 ```
 
-3. **Configure environment variables**  
-   Copy the example file and update with your local PostgreSQL credentials:
+3. **Configure environment variables**
 
-```bash
-cp .env.example .env
-```
-
-Edit `.env`:
+Create `.env` file in backend folder:
 
 ```env
-NODE_ENV=development
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
-DB_NAME=g_scores_local
+DB_NAME=g_scores
 ```
 
-4. **Create database**
+4. **Run migrations and seed database** (takes ~2-5 minutes)
 
 ```bash
-createdb g_scores_local
-```
-
-5. **Seed database** (loads 1M+ records, creates tables/indexes automatically, takes ~2-5 minutes)
-
-```bash
+npm run migration:run
 npm run seed
 ```
 
-6. **Start development server**
+5. **Start development server**
 
 ```bash
 npm run start:dev
@@ -239,7 +306,7 @@ Dataset: Vietnamese National High School Graduation Exam 2024 results
 
 - Added `@Index` decorators on all 9 score columns
 - Implemented 1-hour in-memory cache
-- **Result**: 98% improvement (330s → 5s first load, <1s cached)
+- **Result**: 98% improvement (330s → 15s - 30s first load, <1s cached)
 
 ### 4. SSL Connection for External Database Access
 
