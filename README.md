@@ -5,7 +5,7 @@ A full-stack web application for analyzing Vietnamese National High School Gradu
 ## 🌟 Core Features
 
 - **Score Lookup**: Search individual student scores by registration number (SBD)
-- **Statistical Reports**: Interactive charts showing score distribution across 9 subjects and 5 performance levels
+- **Statistical Reports**: Interactive charts showing score distribution across 9 subjects and 4 performance levels (>=8, 6-8, 4-6 <=4)
 - **Top Students**: View highest-scoring students by exam groups (A, B, C, D)
 - **Responsive Design**: Mobile-friendly interface built with React and Tailwind CSS
 
